@@ -1,5 +1,5 @@
 import math
-from .Generaldistribution import Distribution
+from .GeneralDistribution import Distribution
 import matplotlib.pyplot as plt
 
 
@@ -76,7 +76,7 @@ class Binomial(Distribution):
             None
         """
 
-        figure, ax = plt.figure()
+        _, ax = plt.figure()
         ax.bar([0, 1], self.data)
         plt.show()
 
@@ -110,7 +110,7 @@ class Binomial(Distribution):
         x = [0, 1]
         y = [zero_count, one_count]
 
-        figure, ax = plt.figure()
+        _, ax = plt.figure()
         ax.bar(x, y)
         plt.xlabel("Values")
         plt.ylabel("Frequency")

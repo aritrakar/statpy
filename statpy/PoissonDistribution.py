@@ -3,9 +3,8 @@ import matplotlib.pyplot as plt
 from .GeneralDistribution import Distribution
 
 
-class Gaussian(Distribution):
-    """ Gaussian distribution class for calculating and 
-    visualizing a Gaussian distribution.
+class Poisson(Distribution):
+    """ Poisson distribution class for calculating and visualizing a Poisson distribution.
 
     Attributes:
             mean (float) representing the mean value of the distribution
@@ -14,9 +13,9 @@ class Gaussian(Distribution):
 
     """
 
-    def __init__(self, mu=0, sigma=1):
+    def __init__(self, mu=0):
 
-        Distribution.__init__(self, mu, sigma)
+        Distribution.__init__(self, mu)
 
     def calculate_mean(self):
         """Function to calculate the mean of the data set.
@@ -45,23 +44,7 @@ class Gaussian(Distribution):
                 float: standard deviation of the data set
 
         """
-
-        if sample:
-            n = len(self.data) - 1
-        else:
-            n = len(self.data)
-
-        mean = self.calculate_mean()
-
-        sigma = 0
-
-        for d in self.data:
-            sigma += (d - mean) ** 2
-
-        sigma = math.sqrt(sigma / n)
-
-        self.stdev = sigma
-
+        self.stdev = math.sqrt(self.mean)
         return self.stdev
 
     def plot_histogram(self):
@@ -80,7 +63,7 @@ class Gaussian(Distribution):
         plt.ylabel('count')
 
     def pdf(self, x):
-        """Probability density function calculator for the gaussian distribution.
+        """Probability density function calculator for the Poisson distribution.
 
         Args:
                 x (float): point for calculating the probability density function
@@ -90,7 +73,7 @@ class Gaussian(Distribution):
                 float: probability density function output
         """
 
-        return (1.0 / (self.stdev * math.sqrt(2*math.pi))) * math.exp(-0.5*((x - self.mean) / self.stdev) ** 2)
+        return (math.exp(-self.mean) * (self.mean ** x)) / math.factorial(x)
 
     def plot_histogram_pdf(self, n_spaces=50):
         """Function to plot the normalized histogram of the data and a plot of the 
@@ -139,30 +122,30 @@ class Gaussian(Distribution):
         return x, y
 
     def __add__(self, other):
-        """Function to add together two Gaussian distributions
+        """Function to add together two Poisson distributions
 
         Args:
-                other (Gaussian): Gaussian instance
+                other (Poisson): Poisson instance
 
         Returns:
-                Gaussian: Gaussian distribution
+                Poisson: Poisson distribution
 
         """
 
-        result = Gaussian()
+        result = Poisson()
         result.mean = self.mean + other.mean
-        result.stdev = math.sqrt(self.stdev ** 2 + other.stdev ** 2)
+        result.stdev = result.calculate_stdev()
 
         return result
 
     def __repr__(self):
-        """Function to output the characteristics of the Gaussian instance
+        """Function to output the characteristics of the Poisson instance
 
         Args:
                 None
 
         Returns:
-                string: characteristics of the Gaussian
+                string: characteristics of the Poisson
 
         """
 
