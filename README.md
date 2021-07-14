@@ -1,7 +1,9 @@
 # statpy
 
-A simple package containing some functions for analysing Gaussian and Binomial distributions.
-Created for the Udacity AWS MLE Foundations 2021 course.
+A simple package containing some functions for analysing Gaussian and Binomial distributions. Created for the Udacity AWS MLE Foundations 2021 course.
+
+PyPI link: https://pypi.org/project/statpy/
+
 
 ## Functionality:
 
